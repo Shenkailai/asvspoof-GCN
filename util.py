@@ -41,7 +41,7 @@ def load_data(x, y, Normalize=True):
     # n_g = 50
     for i in range(n_g):
         n = x[i].shape[0]
-        l = y[i]
+        l = int(y[i])
 
         g = nx.Graph()
         node_tags = []

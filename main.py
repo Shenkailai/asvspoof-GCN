@@ -34,7 +34,7 @@ def evaluate_accuracy(dev_loader, model, device):
     for batch_x, batch_y, batch_meta in dev_loader:
         batch_size = batch_x.size(0)
         num_total += batch_size
-        batch_x = batch_x.to(device)
+        # batch_x = batch_x.to(device)
         batch_y = batch_y.view(-1).type(torch.int64).to(device)
         batch_out = model(batch_x)
         _, batch_pred = batch_out.max(dim=1)
@@ -86,7 +86,7 @@ def train_epoch(train_loader, model, lr, optim, device):
         batch_size = batch_x.size(0)
         num_total += batch_size
         ii += 1
-        batch_x = batch_x.to(device)
+        # batch_x = batch_x.to(device)
         batch_y = batch_y.view(-1).type(torch.int64).to(device)
         batch_out = model(batch_x)
         batch_loss = criterion(batch_out, batch_y)
@@ -278,7 +278,7 @@ if __name__ == '__main__':
     dev_loader = DataLoader(dev_set, batch_size=args.batch_size, shuffle=False)
     del dev_set, d_label_dev
     # model
-    train_graphs = load_data(train_set.data_x[0], train_set.data_y[0])
+    train_graphs = load_data([train_set.data_x[0]], [train_set.data_y[0]])
     A = nx.to_numpy_matrix(train_graphs[0].g)
     if (args.graph_type == 'cycle'):
         A[0, -1] = 1
