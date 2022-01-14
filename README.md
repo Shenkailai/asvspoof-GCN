@@ -1,1 +1,1 @@
-# asvspoof_GCN
+# asvspoof-GCN
