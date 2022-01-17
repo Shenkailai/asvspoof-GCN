@@ -19,7 +19,7 @@ from graph.graphcnn import Graph_CNN_ortega
 from torchvision import transforms
 import eval_metrics as em
 from util import load_data
-
+from LFCC_pipeline import lfcc
 __author__ = "Hemlata Tak"
 __email__ = "tak@eurecom.fr"
 __credits__ = ["Jose Patino", "Massimiliano Todisco", "Jee-weon Jung"]
@@ -193,7 +193,7 @@ if __name__ == '__main__':
                         help='Pooling over nodes in a graph to get graph embeddig: sum or average')
     parser.add_argument('--num_classes', type=int, default=2,
                         help='number of layers INCLUDING the input one (default: 2)')
-    parser.add_argument('--features', type=str, default='mfcc')
+    parser.add_argument('--features', type=str, default='lfcc')
 
     parser.add_argument('--graph_type', type=str, default="line", choices=["line", "cycle"],
                         help='Graph construction options')
@@ -232,6 +232,8 @@ if __name__ == '__main__':
 
     if args.features == 'mfcc':
         feature_fn = compute_mfcc_feats
+    elif args.features == 'lfcc':
+        feature_fn = lfcc
 
     transforms = transforms.Compose([
         lambda x: pad(x),
